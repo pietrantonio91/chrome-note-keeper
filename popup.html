@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+
+<body>
+    <h1>
+        <img src="icons/notekeeper32.png"> Chrome Note Keeper
+    </h1>
+    <div class="row justify-content-center">
+        <div id="noteWrapper" class="wrapper">
+            <textarea name="" id="notes" rows="10" placeholder="Write note here... They'll be saved automatically."></textarea>
+            <div id="noteCommands">
+                <div class="text-left">
+                    <button id="copyNote" class="btn-nostyle">
+                        <span class="material-icons">content_copy</span>
+                    </button>
+                    <button id="deleteNote" class="btn-nostyle">
+                        <span class="material-icons">delete</span>
+                    </button>
+                    <button id="downloadNote" class="btn-nostyle">
+                        <span class="material-icons">get_app</span>
+                    </button>
+                </div>
+                <div class="text-right">
+                    <a href="/options.html" target="_blank">See all notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="messages" class="text-center">
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+
+</html>

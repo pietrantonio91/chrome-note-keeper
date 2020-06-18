@@ -1,0 +1,29 @@
+{
+    "name": "Chrome Note Keeper",
+    "version": "0.1",
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/notekeeper16.png",
+            "32": "icons/notekeeper32.png",
+            "64": "icons/notekeeper64.png",
+            "128": "icons/notekeeper128.png"
+        }
+    },
+    "options_page": "options.html",
+    "description": "Chrome Note Keeper: keep notes on specific websites pages.",
+    "icons": {
+        "16": "icons/notekeeper16.png",
+        "32": "icons/notekeeper32.png",
+        "64": "icons/notekeeper64.png",
+        "128": "icons/notekeeper128.png"
+    },
+    "manifest_version": 2,
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "http://*/*", 
+        "https://*/*"
+    ]
+}

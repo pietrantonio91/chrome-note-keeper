@@ -1,0 +1,43 @@
+body {
+    background-color: #758ECD;
+    margin: 0;
+}
+
+#notes {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3rem;
+    background: #fff;
+    border-radius: 1em;
+    box-shadow: 0 0 30px #00000030;
+}
+
+table {
+    width: 100%;
+    font-size: 1.2em;
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 1.5rem;
+    border-bottom: 2px solid #f7f7f7;
+    text-align: left;
+}
+
+tbody tr td:nth-child(1), tbody tr td:nth-child(2),
+thead tr th:nth-child(1), thead tr th:nth-child(2) {
+    width: 40%;
+}
+
+tbody tr td:nth-child(3) {
+    text-align: right;
+}
+
+tbody tr td:nth-child(2) {
+    max-height: 200px;
+}
+
+tbody tr td:nth-child(1) a {
+    font-size: 1em;
+}

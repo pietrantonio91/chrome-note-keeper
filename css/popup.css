@@ -1,0 +1,38 @@
+body {
+    width: 740px;
+    height: 520px;
+    min-width: 400px;
+    min-height: 400px;
+    background-color: #758ECD;
+}
+
+#noteWrapper {
+    background: #fff;
+    border-radius: 1em;
+    box-shadow: 0px 0px 30px #00000030;
+    width: 70%;
+}
+
+#noteCommands {
+    margin: 1.5em 0 0.5em;
+    display: flex;
+    justify-content: space-between;
+}
+
+textarea {
+    resize: none;
+}
+
+#noteCommands button {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    color: #666;
+}
+
+#noteCommands button:hover {
+    color: #333;
+}
+
+#messages {
+    margin-top: 2rem;
+}

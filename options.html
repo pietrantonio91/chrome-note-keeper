@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chrome Note Keeper</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/options.css">
+    </head>
+    <body>
+        <div>
+            <h1>
+                <img src="icons/notekeeper32.png"> Chrome Note Keeper
+            </h1>
+            <div id="notes">
+                <div class="text-center">
+                    <button id="deleteAll" style="margin-right: 1em"><span class="material-icons">delete</span></button>
+                    <button id="reload"><span class="material-icons">refresh</span></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Url</th>
+                            <th>Notes</th>
+                            <th>
+                                <input type="text" id="searchNotes" placeholder="Type to search...">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="messages" class="text-center" style="margin-top: 3rem;">
+        </div>
+        <script src="js/common.js"></script>
+        <script src="js/options.js"></script>
+    </body>
+</html>

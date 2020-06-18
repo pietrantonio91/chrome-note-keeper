@@ -1,0 +1,145 @@
+body {
+    color: #272727;
+    font-family: "Quicksand", sans-serif;
+}
+
+textarea {
+    border: none;
+    font-size: 1.5em;
+    line-height: 1.6em;
+    width: 100%;
+    color: #272727;
+    resize: vertical;
+    font-family: "Quicksand", sans-serif;
+}
+
+input {
+    font-size: 1em;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #eee;
+    border-radius: 0.5rem;
+    background-color: ghostwhite;
+}
+
+textarea:focus, textarea:active, button:active, button:focus, input:active, input:focus {
+    outline: none;
+}
+
+input:focus, input:active {
+    background-color: #fff;
+}
+
+h1 {
+    margin: 2rem 0;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 img {
+    margin-right: 1rem;
+}
+
+a {
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #758ECD;
+}
+
+a:hover {
+    color: #4a5a82;
+}
+
+button:not(.btn-nostyle) {
+    background-color: #758ecd;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5em;
+    border: none;
+    box-shadow: 0 0 20px #00000030;
+    cursor: pointer;
+    font-size: 1.3em;
+}
+
+button:not(.btn-nostyle):hover {
+    background-color: #93b2ff;
+}
+
+p {
+    color: #272727;
+}
+
+.row {
+    padding: 0 2em;
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 2em;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.font-x2 {
+    font-size: 2em;
+}
+
+.font-x3 {
+    font-size: 3em;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+span.message {
+    background: #333;
+    color: #fff;
+    padding: .5rem 1.2rem;
+    border-radius: 2rem;
+}
+
+.btn-nostyle {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.btn-nostyle:hover {
+    color: #ccc;
+}
