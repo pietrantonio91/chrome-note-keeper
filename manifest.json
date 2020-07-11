@@ -1,5 +1,5 @@
 {
-    "name": "Chrome Note Keeper (dev)",
+    "name": "Chrome Note Keeper",
     "version": "0.3",
     "browser_action": {
         "default_popup": "popup.html",
