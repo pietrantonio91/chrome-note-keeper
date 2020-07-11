@@ -13,10 +13,33 @@
             <h1>
                 <img src="icons/notekeeper32.png"> Chrome Note Keeper
             </h1>
+            <div id="messages" class="text-center" style="margin-top: 2rem; height: 50px;">
+            </div>
             <div id="notes">
                 <div class="text-center">
-                    <button id="deleteAll" style="margin-right: 1em"><span class="material-icons">delete</span></button>
-                    <button id="reload"><span class="material-icons">refresh</span></button>
+                    <button id="deleteAll" style="margin: 0 0.5rem;"><span class="material-icons">delete</span></button>
+                    <button id="reload" style="margin: 0 0.5rem;"><span class="material-icons">refresh</span></button>
+                    <button id="download" style="margin: 0 0.5rem;"><span class="material-icons">get_app</span></button>
+                    <button id="upload" style="margin: 0 0.5rem;"><span class="material-icons">publish</span></button>
+                </div>
+                <div id="import" class="hidden">
+                    <div style="position: relative; margin: 2rem auto; width: 50%; background-color: #fafafa; padding: 2rem; border-radius: 1rem;">
+
+                        <button id="closeImportButton" type="button" class="btn-nostyle" style="position: absolute; top: 15px; right: 15px;"><span class="material-icons">close</span></button>
+
+                        <h2 class="text-center">
+                            Import file to recover notes
+                        </h2>
+                        <label for="">
+                            <input type="file" id="file_import">
+                        </label>
+                        <h3 class="text-center">
+                            Attention! Notes for the same URL will be overwritten
+                        </h3>
+                        <div style="margin-top: 2rem">
+                            <button id="importButton" type="button" style="display: flex; margin: auto; align-items: center;"><span class="material-icons">publish</span> Import</button>
+                        </div>
+                    </div>
                 </div>
                 <table>
                     <thead>
@@ -33,8 +56,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div id="messages" class="text-center" style="margin-top: 3rem;">
         </div>
         <script src="js/common.js"></script>
         <script src="js/options.js"></script>

@@ -1,38 +1,61 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    var table = document.getElementById('notes');
-    var tbody = table.querySelector('tbody');
+    const table = document.getElementById('notes');
+    const tbody = table.querySelector('tbody');
 
-    var reload = document.getElementById('reload');
+    const reload = document.getElementById('reload');
     reload.addEventListener('click', function(e) {
         loadNotes(tbody);
+        showMessage('Notes refreshed');
     })
     
     loadNotes(tbody);
+
+    const inputSearch = document.getElementById('searchNotes');
+    inputSearch.addEventListener('keyup', function(e) {
+        search(tbody, e.target.value);
+    });
+
+    const deleteAllButton = document.getElementById('deleteAll');
+    deleteAllButton.addEventListener('click', function(e) {
+        if (confirm('Are you sure you want to delete all notes?')) {   
+            deleteAll(tbody);
+        }
+    });
+
+    const exportButton = document.getElementById('download');
+    exportButton.addEventListener('click', function(e) {
+        if (confirm('Are you sure you want to export all notes?')) {   
+            exportAll();
+        }
+    });
+
+    const uploadButton = document.getElementById('upload');
+    uploadButton.addEventListener('click', function(e) {
+        document.getElementById('import').classList.remove('hidden')
+    });
+
+    const closeImport = document.getElementById('closeImportButton');
+    closeImport.addEventListener('click', function(e) {
+        document.getElementById('import').classList.add('hidden')
+    });
+
+    const importButton = document.getElementById('importButton');
+    importButton.addEventListener('click', function(e) {
+        importFile(tbody);
+    });
 });
 
 function loadNotes(tbody) {
-    chrome.storage.sync.get(["keepNotesHere"], function (data) {
-        var notes = data.keepNotesHere;
+    chrome.storage.sync.get(null, function (items) {
+        let notes = [];
+        for(const key in items) {
+            if (key.startsWith('keepNotesHere')) {
+                notes[key.replace("keepNotesHere|", "")] = items[key];
+            }
+        }
         // add notes to table
         populateTable(notes, tbody);
-
-        var inputSearch = document.getElementById('searchNotes');
-        inputSearch.addEventListener('keyup', function(e) {
-            search(tbody, e.target.value);
-        });
-
-        var deleteAll = document.getElementById('deleteAll');
-        deleteAll.addEventListener('click', function(e) {
-            if (confirm('Are you sure you want to delete all notes?')) {   
-                chrome.storage.sync.set({"keepNotesHere": {}});
-                showMessage('All notes deleted!');
-                // reload storage notes
-                populateTable({}, tbody);
-            }
-        });
-
-        
     });
 }
 
@@ -45,31 +68,30 @@ function populateTable(notes, tbody) {
         tbody.appendChild(tr);
     }
 
-    var deleteButtons = document.querySelectorAll('.deleteNote');
+    let deleteButtons = document.querySelectorAll('.deleteNote');
     deleteButtons.forEach(button => button.addEventListener('click', function(e) {
             let button = e.target;
             if (button.getAttribute('data-url') === null) {
                 button = button.closest('button');
             }
-            var url = button.getAttribute('data-url');
+            let url = button.getAttribute('data-url');
             
             if(confirm('Are you sure you want to delete this note?')) {
-                delete notes[url];
-                chrome.storage.sync.set({"keepNotesHere": notes});
+                chrome.storage.sync.remove(["keepNotesHere|"+url]);
                 showMessage('Note deleted!');
                 // reload storage notes
-                populateTable(notes, tbody);
+                loadNotes(tbody);
             }
         })
     );
 }
 
 function search(tbody, search) {
-    var tr = tbody.querySelectorAll('tr');
+    let tr = tbody.querySelectorAll('tr');
     tr.forEach(function(row) {
-        var show = false;
+        let show = false;
         if (search != '') {            
-            var td = row.querySelectorAll('td');      
+            let td = row.querySelectorAll('td');      
             if (td[0].innerText.toLowerCase().includes(search.toLowerCase()) || td[1].innerText.toLowerCase().includes(search.toLowerCase())) {
                 show = true;
             }            
@@ -82,4 +104,62 @@ function search(tbody, search) {
             row.style.display = 'table-row';
         }
     })
+}
+
+function deleteAll(tbody) {
+    chrome.storage.sync.get(null, function (items) {
+        for(const key in items) {
+            if (key.startsWith('keepNotesHere')) {
+                chrome.storage.sync.remove([key]);
+            }
+        }
+        showMessage('All notes deleted!');
+        // reload storage notes
+        loadNotes(tbody);
+    });
+}
+
+function exportAll() {
+    const currentdate = new Date(); 
+    chrome.storage.sync.get(null, function (items) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(items)));
+        element.setAttribute('download', `KeepNotesHere-export-${currentdate.getFullYear()}-${currentdate.getMonth()+1}-${currentdate.getDate()}_${currentdate.getHours()}-${currentdate.getMinutes()}-${currentdate.getSeconds()}.json`);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+        showMessage('Export completed!');
+    });
+}
+
+function importFile(tbody) {
+    const fileImport = document.getElementById('file_import');
+    const file = fileImport.files[0];
+    if (file !== undefined) {
+        let reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = function (evt) {
+            let text = evt.target.result;
+            try {
+                let json = JSON.parse(text);
+                for(key in json) {
+                    if (key.startsWith('keepNotesHere')) {
+                        let obj = {};
+                        obj[key] = json[key];
+                        chrome.storage.sync.set(obj);
+                    }
+                }
+                document.getElementById('import').classList.add('hidden')
+                fileImport.value = '';
+                showMessage('Import completed!');
+                loadNotes(tbody);
+            } catch (error) {
+                showErrorMessage('An error occurred with this file.');
+            }
+        }
+        reader.onerror = function (evt) {
+            showErrorMessage('An error occurred with this file.');
+        }
+    }
 }

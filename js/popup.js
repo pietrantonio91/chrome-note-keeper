@@ -1,31 +1,50 @@
+const byteLimit = 8192; // Chrome is 8192 bytes, but to be sure I put this limit
+const byteSize = str => new Blob([str]).size;
+
 document.addEventListener('DOMContentLoaded', function () {
     
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
-        var tab = tabs[0];
-        var url = tab.url;
-        var textarea = document.getElementById('notes');
+        const tab = tabs[0];
+        const url = tab.url;
+        const objKey = "keepNotesHere|"+url;
+        let textarea = document.getElementById('notes');
         textarea.focus();
 
-        chrome.storage.sync.get(["keepNotesHere"], function (data) {
-            let notes = data.keepNotesHere;
-            if(notes && notes[url]) {
-                populateTextarea(textarea, notes[url]);
+        chrome.storage.sync.get([objKey], function (data) {
+            let notes = data[objKey];
+            if(notes && notes.length > 0) {
+                populateTextarea(textarea, notes);
             }
         });
         
         textarea.addEventListener('keyup', function(e) {
             let text = e.target.value;
+    
             // save on chrome storage
-            chrome.storage.sync.get(["keepNotesHere"], function (data) {
-                let notes = data.keepNotesHere;
+            chrome.storage.sync.get([objKey], function (data) {
+                let notes = data[objKey];
                 if (!notes) {
-                    notes = {};
+                    notes = '';
                 }
-                notes[url] = text;
+                notes = text;
                 if(text == '') {
-                    delete notes[url];
+                    delete notes;
                 }
-                chrome.storage.sync.set({"keepNotesHere": notes});
+                
+                let obj = {};
+                obj[objKey] = notes;
+                if (byteSize(JSON.stringify(notes)+objKey) > byteLimit) {  
+                    showErrorMessage('NOTE NOT SAVED! Text is too long.');
+                    lengthMessage.classList.add('text-error');
+                    lengthMessage.classList.remove('text-success');
+                    lengthMessage.innerText = 'Error';
+                } else {
+                    chrome.storage.sync.set(obj);
+                    let lengthMessage = document.getElementById('lengthMessage');
+                    lengthMessage.classList.remove('text-error');
+                    lengthMessage.classList.add('text-success');
+                    lengthMessage.innerText = 'Saved';
+                }
             });
         });
         
@@ -36,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let deleteButton = document.getElementById('deleteNote');
         deleteButton.addEventListener('click', function(e) {
             if(confirm('Are you sure you want to delete this note?')) {
-                chrome.storage.sync.get(["keepNotesHere"], function (data) {
-                    let notes = data.keepNotesHere;
-                    delete notes[url];
-                    chrome.storage.sync.set({"keepNotesHere": notes});
+                const url = tab.url;
+                const objKey = "keepNotesHere|"+url;
+                chrome.storage.sync.get([objKey], function (data) {
+                    chrome.storage.sync.remove([objKey]);
                     populateTextarea(textarea, '');
                     showMessage('Note deleted!');
                 });

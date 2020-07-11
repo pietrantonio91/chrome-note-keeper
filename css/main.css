@@ -131,6 +131,11 @@ span.message {
     color: #fff;
     padding: .5rem 1.2rem;
     border-radius: 2rem;
+    font-size: 1rem;
+}
+
+span.message.error {
+    background: #F08080 !important;
 }
 
 .btn-nostyle {
@@ -142,4 +147,15 @@ span.message {
 }
 .btn-nostyle:hover {
     color: #ccc;
+}
+
+.text-error {
+    color: #F08080;
+}
+.text-success {
+    color: #758ECD;
+}
+
+.hidden {
+    display: none;
 }

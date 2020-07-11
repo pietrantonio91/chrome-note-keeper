@@ -10,7 +10,7 @@ body {
     background: #fff;
     border-radius: 1em;
     box-shadow: 0px 0px 30px #00000030;
-    width: 70%;
+    width: 90%;
 }
 
 #noteCommands {
@@ -34,5 +34,6 @@ textarea {
 }
 
 #messages {
-    margin-top: 2rem;
+    height: 40px;
+    margin-top: 1rem;
 }
