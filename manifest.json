@@ -1,6 +1,6 @@
 {
     "name": "Chrome Note Keeper",
-    "version": "0.3",
+    "version": "0.4",
     "browser_action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -17,6 +17,10 @@
         "32": "icons/notekeeper32.png",
         "64": "icons/notekeeper64.png",
         "128": "icons/notekeeper128.png"
+    },  
+    "background": {
+        "scripts": ["js/background.js"],
+        "persistent": false
     },
     "manifest_version": 2,
     "permissions": [

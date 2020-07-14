@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     lengthMessage.classList.remove('text-error');
                     lengthMessage.classList.add('text-success');
                     lengthMessage.innerText = 'Saved';
+                    // send to background
+                    chrome.runtime.sendMessage({
+                        action: 'noteExists',
+                        value: true
+                    });
                 }
             });
         });
@@ -61,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     chrome.storage.sync.remove([objKey]);
                     populateTextarea(textarea, '');
                     showMessage('Note deleted!');
+                    // send to background
+                    chrome.runtime.sendMessage({
+                        action: 'noteExists',
+                        value: false
+                    });
                 });
             }
         });
