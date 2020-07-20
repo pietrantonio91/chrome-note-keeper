@@ -1,6 +1,6 @@
 {
     "name": "Chrome Note Keeper",
-    "version": "0.4",
+    "version": "0.5",
     "browser_action": {
         "default_popup": "popup.html",
         "default_icon": {
@@ -10,6 +10,17 @@
             "128": "icons/notekeeper128.png"
         }
     },
+    "content_scripts": [
+        {
+            "matches": [ "http://*/*", "https://*/*" ],
+            "js": [
+                "js/content.js"
+            ],
+            "run_at": "document_idle",
+            "all_frames": true,
+            "match_about_blank": true
+        }
+    ],
     "options_page": "options.html",
     "description": "Chrome Note Keeper: keep notes on specific websites pages.",
     "icons": {

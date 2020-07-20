@@ -1,10 +1,9 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     if (msg.action === "noteExists") {
         if (msg.value) {
-            chrome.browserAction.setBadgeText({text: "1"});
-            chrome.browserAction.setBadgeBackgroundColor({color: '#758ecd'});
+            showBadge();
         } else {
-            chrome.browserAction.setBadgeText({text: ""});
+            hideBadge();
         }
     }
 });
@@ -16,11 +15,19 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
         chrome.storage.sync.get([objKey], function (data) {
             let notes = data[objKey];
             if(notes && notes.length > 0) {
-                chrome.browserAction.setBadgeText({text: "1"});
-                chrome.browserAction.setBadgeBackgroundColor({color: '#758ecd'});
+                showBadge();
             } else {
-                chrome.browserAction.setBadgeText({text: ""});
+                hideBadge();
             }
         });
     })
 });
+
+function showBadge() {
+    chrome.browserAction.setBadgeText({text: " "});
+    chrome.browserAction.setBadgeBackgroundColor({color: '#758ecd'});
+}
+
+function hideBadge() {
+    chrome.browserAction.setBadgeText({text: ""});
+}
