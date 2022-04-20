@@ -24,10 +24,10 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 });
 
 function showBadge() {
-    chrome.browserAction.setBadgeText({text: " "});
-    chrome.browserAction.setBadgeBackgroundColor({color: '#758ecd'});
+    chrome.action.setBadgeText({text: " "});
+    chrome.action.setBadgeBackgroundColor({color: '#758ecd'});
 }
 
 function hideBadge() {
-    chrome.browserAction.setBadgeText({text: ""});
+    chrome.action.setBadgeText({text: ""});
 }
